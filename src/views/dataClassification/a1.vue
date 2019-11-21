@@ -1,12 +1,11 @@
 <template>
-  <div class="dashboard-container">
+  <div class="container">
     <h2>a1</h2>
   </div>
 </template>
 
 <script>
-import errGif from '@/assets/401_images/401.gif'
-
+import { getData } from '@/api';
 export default {
   name: 'a1',
   data() {
@@ -14,14 +13,25 @@ export default {
 
     }
   },
+  created() {
+    this.fetchData()
+  },
   methods: {
-
+    async fetchData() {
+      const params = {
+        location: "嘉兴",
+        output: "son",
+        ak: "5slgyqGDENN7Sy7pw29IUvrZ",
+      }
+      const data = await getData({params})
+      console.log('data', data)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .dashboard-container {
+  .container {
     height: 100%;
     display: flex;
     align-items: center;

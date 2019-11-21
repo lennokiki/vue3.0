@@ -1,6 +1,8 @@
 <template>
     <el-header>
-      <div class="nav-logo"></div>
+      <div class="nav-logo" @click="handleSelect('dashboard')">
+        <img :src="logo" />
+      </div>
       <div class="nav-menu">
         <el-menu
           :default-active="activeMenu"
@@ -10,75 +12,104 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-            <el-submenu v-for="(item, key) in permission_routes" :key="key" :index="item.name">
-              <template slot="title">
-                <i class="el-icon-location"></i>
-                <span>{{ item.title }}</span>
-              </template>
-              <template v-if="item.chirdren !== null">
-                <el-menu-item
-                  v-for="(item2, index2) in item.chirdren"
-                  :key="index2 + 'sub'"
-                  :index="item2.name"
-                >
-                  <i class="el-icon-s-grid"></i>
-                  <span>{{ item2.title }}</span>
-                </el-menu-item>
-              </template>
-            </el-submenu>
+            <template v-for="(item, index) in filterRoutes">
+              <el-menu-item v-if="!item.children || (item.children && !item.children.length)" :key="index" :index="item.name">
+                <!-- <i class="el-icon-s-grid"></i> -->
+                <span>{{ item.meta.title }}</span>
+              </el-menu-item>
+              <el-submenu v-else :key="index" :index="item.name">
+                <template slot="title">{{ item.meta.title }}</template>
+                <template v-for="(sub, subIndex) in item.children">
+                  <el-menu-item  :key="'sub' + subIndex" :index="sub.name">
+                    <i class="el-icon-s-grid"></i>
+                    <span>{{ sub.meta.title }}</span>
+                  </el-menu-item>
+                </template>
+              </el-submenu>
+            </template>
         </el-menu>
       </div>
       <div class="nav-setting">
-        222
+        <!-- <i class="el-icon-lock"></i> -->
       </div>
     </el-header>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
-  name: 'a1',
+  name: 'NavHeader',
   computed: {
-    ...mapGetters([
-      'permission_routes',
-    ]),
-    activeMenu() {
-      const route = this.$route
-      const { meta, path } = route
-      // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenu) {
-        return meta.activeMenu
-      }
-      return path
+    filterRoutes() {
+      return this.$store.getters.permission_routes.filter((item) => !item.hidden)
     },
   },
   data() {
     return {
-
+      logo: require("@/assets/images/logo.png"),
+      activeMenu: null,
     }
   },
+  created() {
+    this.activeMenu = this.$route.name;
+    this.handleChangeBread(this.$route.name);
+  },
   methods: {
-
+    handleSelect(name) {
+      this.$router.push({ name })
+      this.handleChangeBread(name);
+    },
+    handleChangeBread(name) {
+      let breadList = [];
+      if (name !== 'dashboard') {
+        const routes = this.$store.getters.permission_routes;
+        out: for (let i = 0; i < routes.length; i++) {
+          if (routes[i]['children']) {
+            for (let j = 0; j < routes[i]['children'].length; j++) {
+              if (routes[i]['children'][j]['name'] === name) {
+                const par = {title: routes[i]['meta']['title'], name: routes[i]['name']};
+                const sub = {title: routes[i]['children'][j]['meta']['title'], name};
+                breadList = [].concat(par, sub)
+                break out;
+              }
+            }
+          }
+        }
+      }
+      // const list = name === 'dashboard' ? [] : this.$route.matched;
+      // const breadcrumbList = list.map((item) => ({name: item.name, title: item.meta.title}));
+      this.$store.dispatch('app/changeBreadcrumbList', breadList);
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .el-header {
-    background-color: #B3C0D1;
+    width: 100%;
+    background-color: #545c64;
     height: 60px;
     display: flex;
     align-items: center;
     .nav-logo {
-      width: 150px;
+      width: 200px;
       flex: none;
-      background: #ccc;
+      cursor: pointer;
+      // background: #ccc;
+    }
+    .nav-menu {
+      height: 60px;
+      flex: 1;
     }
     .nav-setting {
       flex: none;
       width: 100px;
       display: flex;
       align-items: center;
+      color: #fff;
+      font-size: 20px;
+      & > i {
+        cursor: pointer;
+      }
     }
   }
 

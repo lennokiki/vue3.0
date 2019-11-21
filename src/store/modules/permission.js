@@ -1,5 +1,5 @@
-import { asyncRoutes, constantRoutes } from '@/router'
-
+import { asyncRoutes, constantRoutes } from '@/router/routes'
+import router from '@/router';
 
 // function hasPermission(roles, route) {
 //   if (route.meta && route.meta.roles) {
@@ -28,20 +28,22 @@ import { asyncRoutes, constantRoutes } from '@/router'
 const state = {
   routes: [],
   addRoutes: []
-}
+};
 
 const mutations = {
   SET_ROUTES: (state, routes) => {
-    state.addRoutes = routes
-    state.routes = constantRoutes.concat(routes)
+    state.addRoutes = routes;
+    state.routes = [].concat(routes, constantRoutes);
+    router.addRoutes(routes);
+    console.log('state route', state.routes);
   }
-}
+};
 
 const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
-      commit('SET_ROUTES', asyncRoutes)
-      resolve(asyncRoutes)
+      commit('SET_ROUTES', asyncRoutes);
+      resolve(asyncRoutes);
     })
   }
 }
@@ -51,4 +53,4 @@ export default {
   state,
   mutations,
   actions
-}
+};

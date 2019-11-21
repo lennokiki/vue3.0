@@ -5,8 +5,6 @@ function resolve(dir) {
 	return path.join(__dirname, dir)
 }
 
-const name = '军队后台管理系统'
-
 // dev 启动端口
 const port = process.env.port || 9090
 
@@ -27,7 +25,7 @@ module.exports = {
 		// 本地代理
 		proxy: {
 			'/api': {
-				target: 'http://127.0.0.1:8000', // 接口地址
+				target: 'http://api.map.baidu.com/telematics/v3/', // 接口地址
 				changeOrigin: true,
 				pathRewrite: {
 					'^/api': ''
@@ -36,12 +34,11 @@ module.exports = {
 		}
 	},
 	configureWebpack: {
-		name: name,
 		resolve: {
 			alias: {
 				'@': resolve('src'),
 				'api': resolve('src/api'),
-				'utils': resolve('src/utils'),
+        'utils': resolve('src/utils'),
 			}
 		}
 	}

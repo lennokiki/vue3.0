@@ -1,14 +1,12 @@
 <template>
-  <div class="dashboard-container">
-    <h2>a1</h2>
+  <div class="container">
+    <h2>distributeGather</h2>
   </div>
 </template>
 
 <script>
-import errGif from '@/assets/401_images/401.gif'
-
 export default {
-  name: 'a1',
+  name: 'distributeGather',
   data() {
     return {
 
@@ -21,7 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .dashboard-container {
+  .container {
     height: 100%;
     display: flex;
     align-items: center;

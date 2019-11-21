@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
-    <h2>a1</h2>
+  <div class="dashboard-container">
+    <h2>c1</h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'a2',
+  name: 'c1',
   data() {
     return {
 
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .container {
+  .dashboard-container {
     height: 100%;
     display: flex;
     align-items: center;
