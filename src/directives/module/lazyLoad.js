@@ -1,4 +1,4 @@
-import LoadingImg from '@/assets/images/loadings.jpg'
+import LoadingImg from '@/assets/images/logo.png'
 
 export default {
   bind: (el, binding) => {
