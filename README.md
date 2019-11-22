@@ -108,8 +108,9 @@
     
     # 2. src/api 中定义 接口地址
     import {ajax} from '@/utils'; // ajax 包含 post、get、delete、head、patch等请求方式，需要与mock数据中的 type 字段相对应
+    import { mockUrl, apiUrl } from '@/config'; 
     #  // 获取table列表
-    export const getCategoryBList = () => ajax.get('/mock/categoryB/list');
+    export const getCategoryBList = () => ajax.get(`${mockUrl}/categoryB/list`);
 
     # 3. 页面组件内使用 src/api 中定义好的方法: src/views/projectEdit/categoryB.vue
     import { getCategoryBList } from '@/api/projectEdit';
@@ -134,7 +135,8 @@
     # 如线上地址为 http://192.80.33.17:8080/v3/user/userList, vue.config.js中target配置为：http://192.80.33.17:8080/v3
     # 那么 此处的请求地址应当为：/api/user/userList 
     import {ajax} from '@/utils';
-    export const getCategoryBList = (data) => ajax.get('/api/xxx/xxx', data);
+    import { mockUrl, apiUrl } from '@/config'; 
+    export const getCategoryBList = (data) => ajax.get(`${apiUrl}/xxx/xxx`, data);
 
     # 组件内引入 传入参数即可
   ```
@@ -143,16 +145,16 @@
   ```bash
     # 遵循axios原配置
     # get 方式传入参数, 参数放在 params 下
-    () => ajax.get('/url', {params: {user: 'a'}})
+    () => ajax.get('/xx', {params: {user: 'a'}})
 
     # post 方式传入参数，直接传入对象即可
-    () => ajax.post('/url', {user: 'a'})
+    () => ajax.post('/xx', {user: 'a'})
   ```
 
   * 上传文件单独定义接口地址
   ```bash
     # api 中定义接口地址
-    export const postCategoryBUpload = '/mock/categoryB/upload';
+    export const postCategoryBUpload = `${mockUrl}/categoryB/upload`;
 
     # 组件内引入
     import { postCategoryBUpload } from '@/api/projectEdit';
@@ -174,6 +176,18 @@
     </el-upload>
 
   ```
+
+# 打包注意事项
+
+  ```bash
+    # 注意在 src/config.js 将 baseUrl 设置为真正线上接口地址
+    if (isProd) {
+      baseUrl = "http://www.baidu.com/api";
+      mockUrl = "";
+      apiUrl = "";
+    }
+  ```
+
 
 
   
