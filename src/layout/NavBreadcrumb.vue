@@ -17,3 +17,16 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+  .container {
+    & > span {
+      line-height: 26px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    & > span:first-child {
+      font-weight: 400;
+    }
+  }
+</style>

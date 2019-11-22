@@ -1,29 +1,6 @@
 import Layout from "@/layout";
 
 export const constantRoutes = [
-  // {
-  //   path: "/redirect",
-  //   component: Layout,
-  //   hidden: true,
-  //   children: [
-  //     {
-  //       path: "/redirect/:path*",
-  //       component: () => import("@/views/redirect/index")
-  //     }
-  //   ]
-  // },
-  {
-    path: "/404",
-    name: "404",
-    hidden: true,
-    component: () => import("@/views/error-page/404")
-  },
-  {
-    path: "/401",
-    name: "401",
-    component: () => import("@/views/error-page/401"),
-    hidden: true
-  },
   {
     path: "/",
     redirect: "/dashboard",
@@ -37,7 +14,19 @@ export const constantRoutes = [
         meta: { title: "导航" }
       }
     ]
-  }
+  },
+  {
+    path: "/404",
+    name: "404",
+    hidden: true,
+    component: () => import("@/views/error-page/404")
+  },
+  {
+    path: "/401",
+    name: "401",
+    component: () => import("@/views/error-page/401"),
+    hidden: true
+  },
 ];
 
 export const asyncRoutes = [
@@ -47,7 +36,6 @@ export const asyncRoutes = [
     name: "dataClassification",
     meta: {
       title: "数据分类浏览",
-      icon: "lock"
     },
     children: [
       {
@@ -56,7 +44,7 @@ export const asyncRoutes = [
         component: () => import("@/views/dataClassification/a1"),
         meta: {
           title: "分类浏览sub1",
-          icon: "lock"
+          icon: "el-icon-s-marketing"
         }
       },
       {
@@ -65,7 +53,7 @@ export const asyncRoutes = [
         component: () => import("@/views/dataClassification/a2"),
         meta: {
           title: "分类浏览sub2",
-          icon: "lock"
+          icon: "el-icon-s-management"
         }
       },
     ]
@@ -76,7 +64,6 @@ export const asyncRoutes = [
     name: "projectEdit",
     meta: {
       title: "项目数据编辑",
-      icon: "lock"
     },
     children: [
       {
@@ -85,7 +72,7 @@ export const asyncRoutes = [
         component: () => import("@/views/projectEdit/categoryA"),
         meta: {
           title: "A类项目",
-          icon: "lock"
+          icon: "el-icon-s-data"
         }
       },
       {
@@ -94,7 +81,7 @@ export const asyncRoutes = [
         component: () => import("@/views/projectEdit/categoryB"),
         meta: {
           title: "B类项目",
-          icon: "lock"
+          icon: "el-icon-s-check"
         }
       },
       {
@@ -103,7 +90,7 @@ export const asyncRoutes = [
         component: () => import("@/views/projectEdit/categoryC"),
         meta: {
           title: "C类项目",
-          icon: "lock"
+          icon: "el-icon-s-opportunity"
         }
       }
     ]
@@ -123,7 +110,7 @@ export const asyncRoutes = [
         component: () => import("@/views/planList/p1"),
         meta: {
           title: "A计划",
-          icon: "lock"
+          icon: "el-icon-s-fold"
         }
       },
       {
@@ -132,7 +119,7 @@ export const asyncRoutes = [
         component: () => import("@/views/planList/b1"),
         meta: {
           title: "B计划",
-          icon: "lock"
+          icon: "el-icon-s-platform"
         }
       }
     ]
@@ -152,7 +139,7 @@ export const asyncRoutes = [
         component: () => import("@/views/urgentlyMatched/c1"),
         meta: {
           title: "c1配套",
-          icon: "lock"
+          icon: "el-icon-s-order"
         }
       }
     ]
@@ -172,7 +159,7 @@ export const asyncRoutes = [
         component: () => import("@/views/systemControl/baseInfo"),
         meta: {
           title: "项目基础信息",
-          icon: "lock"
+          icon: "el-icon-menu"
         }
       },
       {
@@ -181,7 +168,7 @@ export const asyncRoutes = [
         component: () => import("@/views/systemControl/companyConfiguration"),
         meta: {
           title: "项目单位配置",
-          icon: "lock"
+          icon: "el-icon-s-check"
         }
       },
       {
@@ -190,7 +177,7 @@ export const asyncRoutes = [
         component: () => import("@/views/systemControl/distributeGather"),
         meta: {
           title: "数据分发汇总",
-          icon: "lock"
+          icon: "el-icon-s-flag"
         }
       },
       {
@@ -199,7 +186,7 @@ export const asyncRoutes = [
         component: () => import("@/views/systemControl/companyList"),
         meta: {
           title: "填报单位名录",
-          icon: "lock"
+          icon: "el-icon-s-order"
         }
       },
       {
@@ -208,9 +195,14 @@ export const asyncRoutes = [
         component: () => import("@/views/systemControl/dictionaryManage"),
         meta: {
           title: "基础字典管理",
-          icon: "lock"
+          icon: "el-icon-s-operation"
         }
       }
     ]
-  }
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true,
+  },
 ];

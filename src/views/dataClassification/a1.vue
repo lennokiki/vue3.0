@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getData } from '@/api';
+import { getA1List } from '@/api/dataClassification';
 export default {
   name: 'a1',
   data() {
@@ -17,14 +17,14 @@ export default {
     this.fetchData()
   },
   methods: {
-    async fetchData() {
-      const params = {
-        location: "嘉兴",
-        output: "son",
-        ak: "5slgyqGDENN7Sy7pw29IUvrZ",
-      }
-      const data = await getData({params})
-      console.log('data', data)
+    fetchData() {
+      getA1List()
+        .then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          this.$message.error("获取数据失败");
+          console.log(err)
+        })
     }
   }
 }

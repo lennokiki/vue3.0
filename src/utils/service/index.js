@@ -28,8 +28,8 @@ axios.interceptors.response.use(function (response) {
     }
   }
   // 其他数据直接返回
-  if (response.data && response.data.success) {
-    return response.data.obj;
+  if (response.data && response.data.status === 200) {
+    return response.data.data;
   }
   return Promise.reject({msg: (response.data && response.data.msg) || ''});
 }, function (error) {
@@ -44,4 +44,4 @@ axios.interceptors.response.use(function (response) {
   }
 })
 
-export default ajax
+export default ajax;

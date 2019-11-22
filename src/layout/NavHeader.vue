@@ -21,7 +21,7 @@
                 <template slot="title">{{ item.meta.title }}</template>
                 <template v-for="(sub, subIndex) in item.children">
                   <el-menu-item  :key="'sub' + subIndex" :index="sub.name">
-                    <i class="el-icon-s-grid"></i>
+                    <i :class="sub.meta.icon" :style="{color: '#fff'}"></i>
                     <span>{{ sub.meta.title }}</span>
                   </el-menu-item>
                 </template>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import './NavHeaderFormat.scss';
 export default {
   name: 'NavHeader',
   computed: {
@@ -50,10 +51,13 @@ export default {
     }
   },
   created() {
-    this.activeMenu = this.$route.name;
-    this.handleChangeBread(this.$route.name);
+    this.renderCurActive();
+    // this.handleChangeBread(this.$route.name);
   },
   methods: {
+    renderCurActive() {
+      this.activeMenu = this.$route.name;
+    },
     handleSelect(name) {
       this.$router.push({ name })
       this.handleChangeBread(name);
@@ -75,11 +79,14 @@ export default {
           }
         }
       }
-      // const list = name === 'dashboard' ? [] : this.$route.matched;
-      // const breadcrumbList = list.map((item) => ({name: item.name, title: item.meta.title}));
       this.$store.dispatch('app/changeBreadcrumbList', breadList);
     }
-  }
+  },
+  watch: {
+    $route () {
+      this.renderCurActive();
+    }
+  },
 }
 </script>
 

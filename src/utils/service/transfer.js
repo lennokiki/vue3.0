@@ -1,6 +1,4 @@
 import { showLoading } from './globalLoading';
-// import APIS from "../../apis/index2";
-// import { url_ } from '../../../../config/url';
 import qs from 'qs';
 
 // 默认关闭 content-type: application/json 形式

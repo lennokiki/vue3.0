@@ -12,3 +12,10 @@ export default {
   name: "App"
 };
 </script>
+
+<style lang="scss">
+  .el-notification__content {
+    text-align: left !important;
+    word-break: break-all;
+  }
+</style>

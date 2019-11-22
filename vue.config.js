@@ -6,7 +6,7 @@ function resolve(dir) {
 }
 
 // dev 启动端口
-const port = process.env.port || 9090
+const port = process.env.port || 8080
 
 // 启动打包配置项
 module.exports = {
@@ -30,8 +30,9 @@ module.exports = {
 				pathRewrite: {
 					'^/api': ''
 				}
-			}
-		}
+      }
+    },
+    after: require('./mock/mock-server.js')
 	},
 	configureWebpack: {
 		resolve: {
